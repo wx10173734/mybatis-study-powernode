@@ -22,7 +22,8 @@
         </environment>
     </environments>
     <mappers>
-        <mapper resource="CarMapper.xml"/>
-        <mapper resource="LogMapper.xml"/>
+<!--        <mapper resource="CarMapper.xml"/>-->
+<!--        <mapper resource="LogMapper.xml"/>-->
+        <package name="com.lzc.mapper"/>
     </mappers>
 </configuration>
