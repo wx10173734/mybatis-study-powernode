@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lzc.mapper.CarMapper">
+
+    <sql id="baseSql">
+        id
+        ,car_num as carNum,
+            brand,
+            guide_price as guidePrice,
+            produce_time as produceTime,
+            car_type as carType
+    </sql>
+
+
+    <select id="selectByCarType" resultType="com.lzc.pojo.Car">
+        select
+        <include refid="baseSql"></include>
+        from t_car
+        where car_type = #{carType}
+    </select>
+    <select id="selectAllByAscOrDesc" resultType="com.lzc.pojo.Car">
+        select
+        <include refid="baseSql"></include>
+        from t_car order by produce_time ${ascOrDesc}
+    </select>
+    <delete id="deleteBatch">
+        delete
+        from t_car
+        where id in (${ids})
+    </delete>
+    <select id="selectByBrandLike" resultType="com.lzc.pojo.Car">
+        select *
+        from t_car where brand like concat('%',#{brand},'%');
+    </select>
+
+</mapper>
