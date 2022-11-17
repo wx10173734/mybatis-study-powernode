@@ -56,4 +56,17 @@ public class CarMapperTest {
         cars.forEach(car -> System.out.println(car));
 
     }
+
+    @Test
+    public void insertCarUseGenerateKeys() {
+        SqlSession sqlSession = SqlSessionUtil.openSession();
+        CarMapper carMapper = sqlSession.getMapper(CarMapper.class);
+        Car car = new Car(null, "9991", "凯美瑞", 30.0, "2020-11-11", "燃油车");
+        int i = carMapper.insertCarUseGenerateKeys(car);
+        System.out.println(i);
+        System.out.println(car);
+
+        sqlSession.commit();
+        sqlSession.close();
+    }
 }

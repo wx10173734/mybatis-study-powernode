@@ -8,7 +8,7 @@
 
     <!--起别名-->
     <typeAliases>
-       <package name="com.lzc.pojo"/>
+        <package name="com.lzc.pojo"/>
     </typeAliases>
     <environments default="powernodeDB">
         <environment id="powernodeDB">
@@ -22,8 +22,8 @@
         </environment>
     </environments>
     <mappers>
-<!--        <mapper resource="CarMapper.xml"/>-->
-<!--        <mapper resource="LogMapper.xml"/>-->
+        <!--        <mapper resource="CarMapper.xml"/>-->
+        <!--        <mapper resource="LogMapper.xml"/>-->
         <package name="com.lzc.mapper"/>
     </mappers>
 </configuration>
