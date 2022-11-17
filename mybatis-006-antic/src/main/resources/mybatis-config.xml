@@ -5,6 +5,11 @@
 
 <configuration>
     <properties resource="jdbc.properties"/>
+
+    <!--起别名-->
+    <typeAliases>
+       <package name="com.lzc.pojo"/>
+    </typeAliases>
     <environments default="powernodeDB">
         <environment id="powernodeDB">
             <transactionManager type="JDBC"/>
