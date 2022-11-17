@@ -32,6 +32,7 @@ public class SqlSessionUtil {
     // 为什么把SqlSession对象放到ThreadLocal当中呢？为了保证一个线程对应一个SqlSession。
     private static ThreadLocal<SqlSession> local = new ThreadLocal<>();
 
+
     /**
      * 获取会话对象。
      *
