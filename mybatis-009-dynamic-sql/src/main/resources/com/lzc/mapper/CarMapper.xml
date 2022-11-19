@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lzc.mapper.CarMapper">
+
+    <select id="selectByMultiCondition" resultType="com.lzc.pojo.Car">
+        select * from t_car where 1=1
+        <if test="brand != null and brand !=''">
+            brand like concat ('%',#{brand},'%')
+        </if>
+        <if test="guidePrice != null and guidePrice !=''">
+            guide_price > #{guidePrice}
+        </if>
+        <if test="carType != null and carType !=''">
+            and car_type = #{carType}
+        </if>
+    </select>
+    <select id="selectByMultiConditionWithWhere" resultType="com.lzc.pojo.Car">
+        select * from t_car
+        <where>
+            <if test="brand != null and brand != ''">
+                and brand like concat ('%',#{brand},'%')
+            </if>
+            <if test="guidePrice != null and guidePrice !=''">
+                and guide_price > #{guidePrice}
+            </if>
+            <if test="carType != null and carType !=''">
+                and car_type = #{carType}
+            </if>
+        </where>
+    </select>
+    <select id="selectByMultiConditionWithTrim" resultType="com.lzc.pojo.Car">
+        <!--
+         prefix:加前缀
+        suffix:加后缀
+        prefixOverrides:删除前缀
+        suffixOverrides:删除后缀
+
+         -->
+        <!--prefix="where" 是在trim标签所有内容的前面添加where-->
+        <!--suffix0verrides= "and|or" 把trim标签中内容的后缀and或or去掉-->
+        select * from t_car
+        <trim prefix="where" suffixOverrides="and|or">
+            <if test="brand != null and brand != ''">
+                brand like concat ('%',#{brand},'%') and
+            </if>
+            <if test="guidePrice != null and guidePrice !=''">
+                guide_price > #{guidePrice} and
+            </if>
+            <if test="carType != null and carType !=''">
+                car_type = #{carType}
+            </if>
+        </trim>
+    </select>
+    <update id="updateById">
+        update t_car
+        set car_num= #{carNum},
+            brand= #{brand},
+            guide_price= #{guidePrice},
+            produce_time = #{produceTime},
+            car_type= #{carType}
+        where id
+                  = #{id}
+    </update>
+    <update id="updateBySet">
+        update t_car
+        <set>
+            <if test="carNum !=null and carNum !=''">car_num = #{carNum}</if>
+            <if test="brand !=null and brand !=''">brand = #{brand}</if>
+            <if test="guidePrice !=null and guidePrice !=''">guide_price = #{guidePrice}</if>
+            <if test="produceTime !=null and produceTime !=''">produce_time = #{produceTime}</if>
+            <if test="carType !=null and carType !=''">car_type = #{carType}</if>
+        </set>
+        where id =#{id}
+    </update>
+
+    <select id="selectWithChoose" resultType="com.lzc.pojo.Car">
+        select * from t_car
+        <where>
+            <choose>
+                <when test="brand != null and brand != ''">
+                    brand like #{brand}"%"
+                </when>
+                <when test="guidePrice != null and guidePrice != ''">
+                    guide_price >= #{guidePrice}
+                </when>
+                <otherwise>
+                    produce_time >= #{produceTime}
+                </otherwise>
+            </choose>
+        </where>
+    </select>
+
+    <delete id="deleteByIds">
+        <!--
+        foreach标签的属性:
+        collection:指定数组或者集合
+        item:代表数组或集合中的元素
+        separator:循环之间的分隔符
+        -->
+        delete from t_car where id in
+        <foreach collection="ids" open="(" close=")" separator="," item="id">
+            #{id}
+        </foreach>
+    </delete>
+
+    <insert id="insertBatchByForeach">
+        insert into t_car
+        values
+        <foreach collection="cars" item="car" separator=",">
+            (null,#{car.carNum},#{car.brand},#{car.guidePrice},#{car.produceTime},#{car.carType})
+        </foreach>
+    </insert>
+
+
+</mapper>
