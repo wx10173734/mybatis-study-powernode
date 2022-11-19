@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lzc.mapper.CarMapper">
+
+
+    <select id="selectById" resultType="com.lzc.pojo.Car">
+        select *
+        from t_car
+        where id = #{id}
+    </select>
+    <select id="selectAll" resultType="com.lzc.pojo.Car">
+        select *
+        from t_car
+    </select>
+    <select id="selectByBrandLike" resultType="com.lzc.pojo.Car">
+        select *
+        from t_car
+        where brand like concat('%', #{brand}, '%');
+    </select>
+    <select id="selectByIdRetMap" resultType="java.util.Map">
+        select *
+        from t_car
+        where id = #{id}
+    </select>
+    <select id="selectAllRetListMap" resultType="java.util.Map">
+        select *
+        from t_car;
+    </select>
+    <select id="selectAllRetMap" resultType="java.util.Map">
+        select *
+        from t_car;
+    </select>
+
+    <!--
+        1.专门定义一个结果映射，在这个结果映射当中指定数据库表的字段名和Java类的属性名的对应关系。
+        2.type属性，用来指定pojo类的类名
+        3.id属性，指定resultMap的唯一标识，这个id将来要在select标签使用
+    -->
+    <resultMap id="carResultMap" type="com.lzc.pojo.Car">
+        <id property="id" column="id"/>
+        <result property="carNum" column="car_num"/>
+        <result property="brand" column="brand"/>
+        <result property="guidePrice" column="guide_price"/>
+        <result property="produceTime" column="produce_time"/>
+        <result property="carType" column="car_type"/>
+    </resultMap>
+    <select id="selectAllByResultMap" resultMap="carResultMap">
+        select *
+        from t_car
+    </select>
+    <select id="selectBymapUnderscoreToCamelCase" resultType="com.lzc.pojo.Car">
+        select *
+        from t_car
+    </select>
+    <select id="selectTotal" resultType="java.lang.Long">
+        select count(*)
+        from t_car
+    </select>
+</mapper>
