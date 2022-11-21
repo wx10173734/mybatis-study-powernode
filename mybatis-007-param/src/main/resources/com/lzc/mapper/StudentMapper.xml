@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.lzc.mapper.StudentMapper">
+<mapper namespace="com.lzc.mapper.StudentMapper1">
 
     <!--    parameterType属性的作用:-->
     <!--    告诉mybatis框架，我这个方法的参数类型是什么类型。-->
