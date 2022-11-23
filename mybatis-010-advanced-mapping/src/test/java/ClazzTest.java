@@ -17,6 +17,7 @@ public class ClazzTest {
         Clazz clazz = clazzMapper.selectByCollection(1000);
         System.out.println(clazz);
     }
+
     @Test
     public void selectByStep1() {
         SqlSession sqlSession = SqlSessionUtil.openSession();
